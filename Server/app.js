@@ -2,18 +2,17 @@ const { application } = require("express");
 const express = require("express");
 
 const connect = require("./configs/db");
-
+const productController = require("./controllers/product.controller");
+const cors = require("cors");
 const app = express();
+
+app.use(cors());
+
+app.use(express.json());
 
 // EndPoints
 
-app.get("/products", async (req, res) => {
-  try {
-    const product = await res.status(200).send("Hello");
-  } catch (error) {
-    res.status(500);
-  }
-});
+app.use("/products", productController);
 
 app.listen(4000, async () => {
   try {
